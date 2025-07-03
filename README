@@ -1,0 +1,71 @@
+# 🔧 Backup Switch Configs (GUI)
+
+**Backup_SW** est une application Python avec interface graphique (Tkinter) permettant de :
+- Sauvegarder automatiquement la configuration de switches (Cisco, Dell, HPE, Aruba...)
+- Se connecter par SSH via Netmiko
+- Gérer les prompts complexes (ex: Dell avec enable)
+- Exporter les configs localement
+- Utiliser un `.env` pour stocker les identifiants
+
+## 🖥️ Interface
+- Interface graphique avec champ IP/plages d’IP
+- Sélecteur de dossier de sauvegarde
+- Logs détaillés par switch
+- Barre de progression
+- Compatible `.exe` Windows autonome (PyInstaller)
+
+---
+
+## 🚀 Utilisation
+
+### 🐍 Depuis Python (mode dev)
+
+```bash
+pip install -r requirements.txt
+python backup.py
+```
+
+### 📦 Depuis l'exécutable
+
+1. Lancer `build_backup.bat`
+2. Exécuter le fichier généré dans `release/backup.exe`
+
+---
+
+## ⚙️ Configuration `.env`
+
+Crée un fichier `backup.env` (ou `.env` si non compilé) :
+
+```env
+CISCO_USER=admin
+CISCO_PASS=password
+
+ARUBA_USER=admin
+ARUBA_PASS=password
+
+HPE_USER=admin
+HPE_PASS=password
+
+DELL_USER=admin
+DELL_PASS=password
+DELL_ENABLE_PASS=enablepass
+
+GENERIC_USER=admin
+GENERIC_PASS=password
+```
+
+---
+
+## 📦 Compilation en `.exe` (facultatif)
+
+```bash
+pyinstaller --noconsole --onefile --icon=icon.ico backup.py
+```
+
+Ou lance `build_backup.bat` pour tout automatiser (compilation + nettoyage + release).
+
+---
+
+## 📝 Licence
+
+Ce projet est distribué sous licence MIT. Voir [`LICENSE`](LICENSE).

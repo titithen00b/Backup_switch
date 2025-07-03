@@ -1,0 +1,22 @@
+# Environnement virtuel
+venv/
+.env
+*.env
+
+# Fichiers temporaires
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.log
+
+# Cache éditeurs
+.vscode/
+.idea/
+
+# Dossiers système
+.DS_Store
+Thumbs.db
+
+# Programme compilé
+*.exe 
