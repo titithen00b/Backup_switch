@@ -5,36 +5,39 @@
 - Se connecter par SSH via Netmiko
 - Gérer les prompts complexes (ex: Dell avec enable)
 - Exporter les configs localement
-- Utiliser un `.env` pour stocker les identifiants
+- Utiliser un `.env` externe pour stocker les identifiants (non inclus dans l’exe)
 
 ## 🖥️ Interface
 - Interface graphique avec champ IP/plages d’IP
 - Sélecteur de dossier de sauvegarde
 - Logs détaillés par switch
 - Barre de progression
-- Compatible `.exe` Windows autonome (PyInstaller)
+- Compatible `.exe` Windows autonome (via PyInstaller)
 
 ---
 
 ## 🚀 Utilisation
 
-### 🐍 Depuis Python (mode dev)
+### 🐍 Depuis Python (mode développeur)
 
 ```bash
 pip install -r requirements.txt
 python backup.py
 ```
 
-### 📦 Depuis l'exécutable
+### 📦 Depuis l'exécutable (Windows)
 
-1. Lancer `build_backup.bat`
-2. Exécuter le fichier généré dans `release/backup.exe`
+1. Compiler avec `build_backup.bat`
+2. Copier `backup.env` dans le même dossier que `backup.exe` (ex: `release/`)
+3. Lancer `backup.exe`
 
 ---
 
-## ⚙️ Configuration `.env`
+## ⚙️ Configuration `backup.env`
 
-Crée un fichier `backup.env` (ou `.env` si non compilé) :
+Le fichier `.env` **n'est pas inclus dans l'exécutable** pour des raisons de sécurité.
+
+Tu dois le fournir **à côté du `.exe`** et il doit contenir :
 
 ```env
 CISCO_USER=admin
@@ -56,13 +59,28 @@ GENERIC_PASS=password
 
 ---
 
-## 📦 Compilation en `.exe` (facultatif)
+## 📦 Compilation en `.exe`
 
 ```bash
 pyinstaller --noconsole --onefile --icon=icon.ico backup.py
 ```
 
-Ou lance `build_backup.bat` pour tout automatiser (compilation + nettoyage + release).
+Ou simplement :
+
+```bash
+build_backup.bat
+```
+
+Cela générera un `.exe` propre dans `release/` sans fichiers temporaires.
+
+---
+
+## 🔐 Sécurité
+
+- Le fichier `backup.env` **n’est jamais compilé dans le .exe**
+- Il doit rester à côté de `backup.exe`
+- Cela évite toute fuite de mots de passe dans l’exécutable compilé
+- Pour plus de sécurité : restreindre les ACL Windows sur `backup.env`
 
 ---
 
