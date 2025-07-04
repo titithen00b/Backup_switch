@@ -14,16 +14,7 @@ import logging
 import re
 #logging.basicConfig(filename='netmiko_debug.log', level=logging.DEBUG)
 
-def get_exe_dir():
-    if getattr(sys, 'frozen', False):
-        # Executable PyInstaller
-        return os.path.dirname(sys.executable)
-    else:
-        # En mode script Python
-        return os.path.dirname(os.path.abspath(__file__))
-
-env_path = os.path.join(get_exe_dir(), "backup.env")
-load_dotenv(dotenv_path=env_path)
+load_dotenv()
 
 
 # === IPs complètes ===

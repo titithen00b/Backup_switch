@@ -1,12 +1,20 @@
 @echo off
 setlocal enabledelayedexpansion
-title Compilation clean de backup.py
+title Compilation clean de backup.py avec .spec personnalisé
 
 set EXENAME=backup
-set RELEASEDIR=..\release
+set RELEASEDIR=release
 
-echo === Compilation en cours...
-pyinstaller --noconsole --onefile --icon=icon.ico --name %EXENAME% backup.py
+echo === Compilation via backup.spec...
+if not exist backup.spec (
+    echo Le fichier backup.spec est introuvable !
+    echo Assurez-vous de lancer ce script depuis le dossier contenant backup.spec
+    pause
+    exit /b 1
+)
+
+:: Compilation en utilisant le .spec
+pyinstaller backup.spec
 
 IF %ERRORLEVEL% NEQ 0 (
     echo Erreur lors de la compilation.
@@ -14,31 +22,23 @@ IF %ERRORLEVEL% NEQ 0 (
     exit /b %ERRORLEVEL%
 )
 
-echo.
-echo  Compilation terminée.
-
 :: Créer release/ si nécessaire
 if not exist %RELEASEDIR% (
     mkdir %RELEASEDIR%
 )
 
-:: Supprimer ancienne version
-if exist %RELEASEDIR%\\%EXENAME%.exe (
-    del /q %RELEASEDIR%\\%EXENAME%.exe
-)
-
-:: Déplacer l'exe dans release/
+:: Déplacer le .exe dans release/
 move /y dist\\%EXENAME%.exe %RELEASEDIR%\\%EXENAME%.exe > nul
 
-:: Nettoyage total
-echo Nettoyage des dossiers et fichiers temporaires...
+:: Nettoyage
+echo Nettoyage des fichiers temporaires...
 rd /s /q build
 rd /s /q dist
 rd /s /q __pycache__ 2>nul
-del /q *.pyc *.log *.manifest *.spec~ *.tmp 2>nul
+del /q *.pyc *.log *.tmp *.manifest *.spec~ 2>nul
 
 echo.
-echo Fichier final : %RELEASEDIR%\\%EXENAME%.exe
+echo Fichier final prêt : %RELEASEDIR%\\%EXENAME%.exe
 echo.
 
 pause

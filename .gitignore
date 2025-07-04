@@ -1,7 +1,6 @@
 # Environnement virtuel
 venv/
-.env
-*.env
+
 
 # Fichiers temporaires
 *.pyc
@@ -18,4 +17,5 @@ __pycache__/
 .DS_Store
 Thumbs.db
 
-
+# Environnement de test
+tests/
