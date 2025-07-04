@@ -3,7 +3,7 @@ setlocal enabledelayedexpansion
 title Compilation clean de backup.py avec .spec personnalisé
 
 set EXENAME=backup
-set RELEASEDIR=release
+set RELEASEDIR=..\release
 
 echo === Compilation via backup.spec...
 if not exist backup.spec (
