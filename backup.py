@@ -193,7 +193,7 @@ def backup_configs(save_path, output_area, target_ips):
                                     config = conn.send_command(
                                         cmd,
                                         delay_factor=2,
-                                        read_timeout=60,
+                                        read_timeout=10,
                                         cmd_verify=False
                                     )
                                     if "% Invalid input detected" not in config and config.strip():
